@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -54,7 +55,12 @@ func main() {
 	// Start Server
 	// ==========================
 
-	log.Println("🚀 Server running on http://localhost:8000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000" // Local development
+	}
+
+	log.Printf("🚀 Server running on port %s\n", port)
 
 	cors := handlers.CORS(
 		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
@@ -62,7 +68,7 @@ func main() {
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 	)
 
-	err := http.ListenAndServe(":8000", cors(r))
+	err := http.ListenAndServe(":"+port, cors(r))
 	if err != nil {
 		log.Fatal(err)
 	}
