@@ -63,7 +63,7 @@ func main() {
 	log.Printf("🚀 Server running on port %s\n", port)
 
 	cors := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 	)
