@@ -37,7 +37,7 @@ export default function Reports({ refreshKey }) {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [refreshKey]);
 
   const runFine = async () => {

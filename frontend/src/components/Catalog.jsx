@@ -49,7 +49,7 @@ export default function Catalog({ onEdit, onBorrow, refreshKey }) {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [refreshKey]);
 
   const onSubmit = (e) => {

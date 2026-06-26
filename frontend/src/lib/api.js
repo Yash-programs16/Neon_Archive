@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Points to your Go backend (main.go)
 export const API_BASE =
-  process.env.REACT_APP_GO_API_URL || "http://localhost:8000";
+  process.env.REACT_APP_GO_API_URL || "https://neon-archive-1.onrender.com";
 
 export const api = axios.create({
   baseURL: API_BASE,
