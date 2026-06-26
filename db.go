@@ -24,8 +24,4 @@ func connector() {
 		log.Fatalf("Failed to connect to database:%v", err)
 	}
 
-	defer pool.Close()
-
-	//transaction
-
 }
