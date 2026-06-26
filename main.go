@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -55,7 +56,13 @@ func main() {
 
 	log.Println("🚀 Server running on http://localhost:8000")
 
-	err := http.ListenAndServe(":8000", r)
+	cors := handlers.CORS(
+		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"Content-Type"}),
+	)
+
+	err := http.ListenAndServe(":8000", cors(r))
 	if err != nil {
 		log.Fatal(err)
 	}

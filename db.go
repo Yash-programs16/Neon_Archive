@@ -9,19 +9,20 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func connector() {
+var db *pgxpool.Pool
 
+func ConnectDB() {
 	err := godotenv.Load()
-
 	if err != nil {
-		log.Fatal("error loading .env file")
+		log.Fatal("Error loading .env")
 	}
+
 	connStr := os.Getenv("DB_URL")
 
-	pool, err := pgxpool.New(context.Background(), connStr)
-
+	db, err = pgxpool.New(context.Background(), connStr)
 	if err != nil {
-		log.Fatalf("Failed to connect to database:%v", err)
+		log.Fatal(err)
 	}
 
+	log.Println("Database Connected!")
 }
