@@ -12,17 +12,27 @@ import (
 var db *pgxpool.Pool
 
 func ConnectDB() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env")
+
+	// Load .env locally. Ignore the error on Render.
+	if err := godotenv.Load(); err != nil {
+		log.Println(".env not found, using environment variables")
 	}
 
 	connStr := os.Getenv("DB_URL")
+	if connStr == "" {
+		log.Fatal("DB_URL environment variable is not set")
+	}
 
+	var err error
 	db, err = pgxpool.New(context.Background(), connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Println("Database Connected!")
+	err = db.Ping(context.Background())
+	if err != nil {
+		log.Fatal("Database connection failed:", err)
+	}
+
+	log.Println("✅ Database Connected!")
 }
